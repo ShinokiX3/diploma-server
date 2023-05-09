@@ -27,10 +27,12 @@ export class FileService {
             const fileName = uuid.v4() + '.' + fileExtension;
             const filePath = './static/image';
 
-            throw new HttpException(
-                e.message + fileExtension + fileName + filePath,
-                HttpStatus.INTERNAL_SERVER_ERROR,
-            );
+            return `${file}`;
+
+            // throw new HttpException(
+            //     e.message + fileExtension + fileName + filePath,
+            //     HttpStatus.INTERNAL_SERVER_ERROR,
+            // );
         }
     }
 
