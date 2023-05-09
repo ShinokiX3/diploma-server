@@ -61,7 +61,6 @@ export class ProductsService {
             });
 
             if (product.length < 1) {
-                return FileType.IMAGE;
                 const picturePath = this.fileService.createFile(
                     FileType.IMAGE,
                     picture,

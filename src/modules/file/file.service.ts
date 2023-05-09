@@ -21,14 +21,14 @@ export class FileService {
 
             // fs.writeFileSync(path.resolve(filePath, fileName), file[0].buffer);
             fs.writeFileSync(`${filePath}/${fileName}`, file[0].buffer);
-
+            return 'not error';
             return type + '/' + fileName;
         } catch (e) {
             const fileExtension = file[0].originalname.split('.').pop();
             const fileName = uuid.v4() + '.' + fileExtension;
             const filePath = './static/image';
 
-            return `${file}`;
+            return `error`;
 
             throw new HttpException(
                 e.message + fileExtension + fileName + filePath,
