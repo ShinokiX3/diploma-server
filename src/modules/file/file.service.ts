@@ -10,10 +10,6 @@ export enum FileType {
 @Injectable()
 export class FileService {
     createFile(type: FileType, file): string {
-        // const fileExtension = file[0].originalname.split('.').pop();
-        // const fileName = uuid.v4() + '.' + fileExtension;
-        // const filePath = './static/image';
-        // return `${filePath}`;
         try {
             const fileExtension = file[0].originalname.split('.').pop();
             const fileName = uuid.v4() + '.' + fileExtension;
@@ -23,10 +19,8 @@ export class FileService {
                 fs.mkdirSync(filePath, { recursive: true });
             }
 
-            return filePath;
-
             // fs.writeFileSync(path.resolve(filePath, fileName), file[0].buffer);
-            fs.writeFileSync(path.resolve(filePath, fileName), file[0].buffer);
+            fs.writeFileSync(`${filePath}/${fileName}`, file[0].buffer);
 
             return type + '/' + fileName;
         } catch (e) {
