@@ -12,7 +12,8 @@ export class FileService {
     createFile(type: FileType, file): string {
         const fileExtension = file[0].originalname.split('.').pop();
         const fileName = uuid.v4() + '.' + fileExtension;
-        return `${fileName}`;
+        const filePath = './static/image';
+        return `${filePath}`;
         try {
             const fileExtension = file[0].originalname.split('.').pop();
             const fileName = uuid.v4() + '.' + fileExtension;
