@@ -55,7 +55,7 @@ export class ProductsService {
     }
 
     async createProduct(dto: CreateProductDTO, picture): Promise<any> {
-        return dto;
+        return picture;
         try {
             const product = await this.productsModel.find({
                 title: dto.title,
