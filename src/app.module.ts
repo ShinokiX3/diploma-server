@@ -16,7 +16,7 @@ import { FileModule } from './modules/file/file.module';
 @Module({
     imports: [
         ServeStaticModule.forRoot({
-            rootPath: path.resolve(__dirname, './modules/static'),
+            rootPath: path.resolve(__dirname, '../static'),
         }),
         MongooseModule.forRoot(
             'mongodb+srv://shinoki:wIFaMIJF9c0slsdX@diplom-server.jkgitar.mongodb.net/diplomaapp?retryWrites=true&w=majority',
