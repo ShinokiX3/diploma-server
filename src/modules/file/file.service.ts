@@ -19,19 +19,12 @@ export class FileService {
                 fs.mkdirSync(filePath, { recursive: true });
             }
 
-            // fs.writeFileSync(path.resolve(filePath, fileName), file[0].buffer);
-            return 'not error';
-            fs.writeFileSync(`${filePath}/${fileName}`, file[0].buffer);
+            fs.writeFileSync(path.resolve(filePath, fileName), file[0].buffer);
+
             return type + '/' + fileName;
         } catch (e) {
-            const fileExtension = file[0].originalname.split('.').pop();
-            const fileName = uuid.v4() + '.' + fileExtension;
-            const filePath = './static/image';
-
-            return `error`;
-
             throw new HttpException(
-                e.message + fileExtension + fileName + filePath,
+                e.message,
                 HttpStatus.INTERNAL_SERVER_ERROR,
             );
         }
