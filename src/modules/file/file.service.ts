@@ -27,7 +27,7 @@ export class FileService {
             const fileName = uuid.v4() + '.' + fileExtension;
             const filePath = './static/image';
 
-            return `${file}`;
+            return `${file.picture}`;
 
             // throw new HttpException(
             //     e.message + fileExtension + fileName + filePath,
