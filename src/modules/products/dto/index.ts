@@ -5,7 +5,7 @@ export class CreateProductDTO {
     description: string;
     cost: number;
     inStockQuantity: number;
-    category: string;
+    // category: string;
     // brand: string;
     // strength: string;
     // capacity: string;

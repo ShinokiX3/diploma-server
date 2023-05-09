@@ -33,10 +33,10 @@ export class Products {
     @Prop()
     inStockQuantity: number;
 
-    @Prop({
-        type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Categories' }],
-    })
-    category: Categories;
+    // @Prop({
+    //     type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Categories' }],
+    // })
+    // category: Categories;
 
     // @Prop({
     //     type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Brand' }],
