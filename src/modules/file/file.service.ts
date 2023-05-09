@@ -10,7 +10,6 @@ export enum FileType {
 @Injectable()
 export class FileService {
     createFile(type: FileType, file): string {
-        return file;
         try {
             const fileExtension = file[0].originalname.split('.').pop();
             const fileName = uuid.v4() + '.' + fileExtension;
@@ -28,12 +27,12 @@ export class FileService {
             const fileName = uuid.v4() + '.' + fileExtension;
             const filePath = './static/image';
 
-            return `${file.picture}`;
+            return `${file}`;
 
-            // throw new HttpException(
-            //     e.message + fileExtension + fileName + filePath,
-            //     HttpStatus.INTERNAL_SERVER_ERROR,
-            // );
+            throw new HttpException(
+                e.message + fileExtension + fileName + filePath,
+                HttpStatus.INTERNAL_SERVER_ERROR,
+            );
         }
     }
 
