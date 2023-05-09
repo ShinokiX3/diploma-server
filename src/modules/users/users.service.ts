@@ -87,6 +87,10 @@ export class UsersService {
         }
     }
 
+    async findRole(id: string): Promise<any> {
+        return await this.roleModel.findById({ _id: id });
+    }
+
     // async updateUser(
     //     userId: number,
     //     dto: UpdateUserDTO,

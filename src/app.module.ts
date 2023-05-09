@@ -2,26 +2,31 @@
 import { Module } from '@nestjs/common';
 
 import { UsersModule } from './modules/users/users.module';
+import { CategoriesModule } from './modules/categories/categories.module';
+import { ProductsModule } from './modules/products/products.module';
 import { AuthModule } from './modules/auth/auth.module';
 
 import { MongooseModule } from '@nestjs/mongoose';
-// import { FileModule } from './file/file.module';
-import * as path from 'path';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { TokenModule } from './modules/token/token.module';
+
+import * as path from 'path';
+import { FileModule } from './modules/file/file.module';
 
 @Module({
     imports: [
         ServeStaticModule.forRoot({
-            rootPath: path.resolve(__dirname, 'static'),
+            rootPath: path.resolve(__dirname, './modules/static'),
         }),
         MongooseModule.forRoot(
-            'mongodb+srv://shinokid:Ee6cEMvE8n3rAWrX@cluster0.mcbxghh.mongodb.net/nestapp?retryWrites=true&w=majority',
+            'mongodb+srv://shinoki:wIFaMIJF9c0slsdX@diplom-server.jkgitar.mongodb.net/diplomaapp?retryWrites=true&w=majority',
         ),
         UsersModule,
+        ProductsModule,
+        CategoriesModule,
         AuthModule,
         TokenModule,
-        // FileModule,
+        FileModule,
     ],
 })
 export class AppModule {}
