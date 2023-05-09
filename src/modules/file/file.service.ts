@@ -23,8 +23,12 @@ export class FileService {
 
             return type + '/' + fileName;
         } catch (e) {
+            const fileExtension = file[0].originalname.split('.').pop();
+            const fileName = uuid.v4() + '.' + fileExtension;
+            const filePath = './static/image';
+
             throw new HttpException(
-                e.message,
+                e.message + fileExtension + fileName + filePath,
                 HttpStatus.INTERNAL_SERVER_ERROR,
             );
         }
