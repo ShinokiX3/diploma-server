@@ -21,7 +21,6 @@ export class FileService {
 
             // fs.writeFileSync(path.resolve(filePath, fileName), file[0].buffer);
             fs.writeFileSync(`${filePath}/${fileName}`, file[0].buffer);
-            return `${type}`;
 
             return type + '/' + fileName;
         } catch (e) {
