@@ -20,8 +20,8 @@ export class FileService {
             }
 
             // fs.writeFileSync(path.resolve(filePath, fileName), file[0].buffer);
-            fs.writeFileSync(`${filePath}/${fileName}`, file[0].buffer);
             return 'not error';
+            fs.writeFileSync(`${filePath}/${fileName}`, file[0].buffer);
             return type + '/' + fileName;
         } catch (e) {
             const fileExtension = file[0].originalname.split('.').pop();
