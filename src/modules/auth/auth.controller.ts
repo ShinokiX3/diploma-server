@@ -13,6 +13,7 @@ import { UserLoginDTO } from './dto';
 import { AuthUserResponse } from './response';
 import { UsersService } from '../users/users.service';
 import { JwtAuthGuard } from '../../guards/jwt-guard';
+import { AdminRoleGuard } from 'src/guards/roles-guard';
 
 @Controller('auth')
 export class AuthController {
@@ -31,6 +32,20 @@ export class AuthController {
         @Body() dto: UserLoginDTO,
     ): Promise<AuthUserResponse | BadRequestException> {
         return this.authService.loginUser(dto);
+    }
+
+    @Post('admin-login')
+    adminLogin(
+        @Body() dto: UserLoginDTO,
+    ): Promise<AuthUserResponse | BadRequestException> {
+        return this.authService.loginAdmin(dto);
+    }
+
+    @UseGuards(AdminRoleGuard)
+    @UseGuards(JwtAuthGuard)
+    @Post('check')
+    check(@Body() dto: any): Promise<any> {
+        return this.authService.check(dto);
     }
 
     @Get('login')

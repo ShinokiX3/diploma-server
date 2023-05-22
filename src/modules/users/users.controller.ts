@@ -2,6 +2,8 @@ import {
     Body,
     Controller,
     Delete,
+    Post,
+    Get,
     Patch,
     Req,
     UseGuards,
@@ -13,30 +15,36 @@ import { JwtAuthGuard } from '../../guards/jwt-guard';
 export class UsersController {
     constructor(private readonly userService: UsersService) {}
 
-    // @UseGuards(JwtAuthGuard)
-    // @Patch()
-    // updateUser(
-    //     @Body() updateDto: UpdateUserDTO,
-    //     @Req() request,
-    // ): Promise<UpdateUserDTO> {
-    //     const user = request.user;
-    //     return this.userService.updateUser(user.id, updateDto);
-    // }
+    // Order
 
-    // @UseGuards(JwtAuthGuard)
-    // @Patch('change-password')
-    // updatePassword(
-    //     @Body() updatePasswordDto: UpdatePasswordDTO,
-    //     @Req() request,
-    // ): Promise<any> {
-    //     const user = request.user;
-    //     return this.userService.updatePassword(user.id, updatePasswordDto);
-    // }
+    @UseGuards(JwtAuthGuard)
+    @Get('/order/user')
+    getUserOrders(@Req() request): Promise<boolean> {
+        return this.userService.getUserOrders(request);
+    }
 
-    // @UseGuards(JwtAuthGuard)
-    // @Delete()
-    // deleteUser(@Req() request): Promise<boolean> {
-    //     const user = request.user;
-    //     return this.userService.deleteUser(user.id);
-    // }
+    @Post('/order/create')
+    createOrder(@Body() dto: any): Promise<boolean> {
+        return this.userService.createOrder(dto);
+    }
+
+    // Favourite
+
+    @UseGuards(JwtAuthGuard)
+    @Get('/favourite/all')
+    getAllFromFavourites(@Req() request): Promise<boolean> {
+        return this.userService.getAllFromFavourites(request);
+    }
+
+    @UseGuards(JwtAuthGuard)
+    @Post('/favourite/push')
+    pushFavourite(@Req() request, @Body() dto: any): Promise<boolean> {
+        return this.userService.pushFavourite(request, dto);
+    }
+
+    @UseGuards(JwtAuthGuard)
+    @Delete('/favourite/remove')
+    removeFavourite(@Req() request, @Body() dto: any): Promise<boolean> {
+        return this.userService.removeFavourite(request, dto);
+    }
 }

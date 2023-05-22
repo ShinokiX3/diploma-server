@@ -41,6 +41,39 @@ export class AuthService {
         }
     }
 
+    async loginAdmin(dto: UserLoginDTO): Promise<AuthUserResponse> {
+        try {
+            const existUser = await this.userService.findUserByEmail(dto.email);
+
+            if (existUser.length < 1)
+                throw new BadRequestException(AppError.USER_NOT_EXIST);
+            const validatePassword = await bcrypt.compare(
+                dto.password,
+                existUser[0].password,
+            );
+
+            if (!validatePassword)
+                throw new BadRequestException(AppError.WRONG_DATA);
+
+            const role = await this.userService.findRole(existUser[0].role[0]);
+
+            if (role.value !== 'admin')
+                throw new BadRequestException(AppError.PERMISSION_ERROR);
+
+            return this.userService.publicUser(dto.email);
+        } catch (e) {
+            throw new Error(e);
+        }
+    }
+
+    async check(dto: any): Promise<any> {
+        try {
+            return true;
+        } catch (e) {
+            throw new Error(e);
+        }
+    }
+
     async test() {
         return 'hello world';
     }

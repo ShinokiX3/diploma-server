@@ -7,7 +7,7 @@ export type FavouritesDocument = Favourites & Document;
 @Schema()
 export class Favourites {
     @Prop()
-    asins: string[];
+    products: string[];
 }
 
 export const FavouritesSchema = SchemaFactory.createForClass(Favourites);

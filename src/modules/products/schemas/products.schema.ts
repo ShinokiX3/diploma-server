@@ -31,42 +31,48 @@ export class Products {
     cost: number;
 
     @Prop()
+    discount: number;
+
+    @Prop()
     inStockQuantity: number;
 
-    // @Prop({
-    //     type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Categories' }],
-    // })
-    // category: Categories;
+    @Prop()
+    isNew: boolean;
 
-    // @Prop({
-    //     type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Brand' }],
-    // })
-    // brand: Brand;
+    @Prop({
+        type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Categories' }],
+    })
+    category: Categories;
 
-    // @Prop({
-    //     type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Strength' }],
-    // })
-    // strength: Strength;
+    @Prop({
+        type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Brand' }],
+    })
+    brand: Brand;
 
-    // @Prop({
-    //     type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Capacity' }],
-    // })
-    // capacity: Capacity;
+    @Prop({
+        type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Strength' }],
+    })
+    strength: Strength;
 
-    // @Prop({
-    //     type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Kind' }],
-    // })
-    // kind: Kind;
+    @Prop({
+        type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Capacity' }],
+    })
+    capacity: Capacity;
 
-    // @Prop({
-    //     type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Manufacturer' }],
-    // })
-    // manufacturer: Manufacturer;
+    @Prop({
+        type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Kind' }],
+    })
+    kind: Kind;
 
-    // @Prop({
-    //     type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Packing' }],
-    // })
-    // packing: Packing;
+    @Prop({
+        type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Manufacturer' }],
+    })
+    manufacturer: Manufacturer;
+
+    @Prop({
+        type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Packing' }],
+    })
+    packing: Packing;
 }
 
 export const ProductsSchema = SchemaFactory.createForClass(Products);

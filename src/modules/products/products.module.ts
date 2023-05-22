@@ -20,6 +20,11 @@ import { JwtStrategy } from 'src/strategy';
 import { ConfigService } from '@nestjs/config';
 import { UsersModule } from '../users/users.module';
 import { FileService } from '../file/file.service';
+import {
+    Categories,
+    CategoriesSchema,
+} from '../categories/schemas/categories.schema';
+import { CategoriesModule } from '../categories/categories.module';
 
 @Module({
     imports: [
@@ -41,6 +46,7 @@ import { FileService } from '../file/file.service';
             { name: Capacity.name, schema: CapacitySchema },
         ]),
         UsersModule,
+        CategoriesModule,
         TokenModule,
     ],
     controllers: [ProductsController],

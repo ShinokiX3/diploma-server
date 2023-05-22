@@ -4,7 +4,6 @@ import { Document } from 'mongoose';
 import * as mongoose from 'mongoose';
 
 import { Role } from './role.schema';
-import { Favourites } from './favourites.schema';
 import { Orders } from './orders.schema';
 
 export type UserDocument = User & Document;
@@ -35,10 +34,8 @@ export class User {
     @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Role' }] })
     role: Role[];
 
-    @Prop({
-        type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Favourites' }],
-    })
-    favourites: Favourites;
+    @Prop()
+    favourites: string[];
 
     @Prop({
         type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Orders' }],
@@ -47,3 +44,8 @@ export class User {
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
+
+// @Prop({
+//     type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Favourites' }],
+// })
+// favourites: Favourites;
