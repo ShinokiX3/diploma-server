@@ -142,8 +142,11 @@ export class ProductsService {
 
     async editProduct(dto: any): Promise<any> {
         try {
-            const product = await this.productsModel.find();
-            return product;
+            const response = this.productsModel.updateOne(
+                { _id: dto.id },
+                { $set: dto.data },
+            );
+            return response;
         } catch (e) {
             throw new BadRequestException('error');
         }
@@ -542,6 +545,25 @@ export class ProductsService {
             return { error: '', message: 'Products doesn`t exist' };
         } catch (e) {
             throw new BadRequestException('error');
+        }
+    }
+
+    // Chart
+
+    async getProductsServiceChartInfo(request: any): Promise<any> {
+        try {
+            const categories = await this.categoriesService.getCategories();
+            const products = await this.productsModel.find();
+
+            return categories.map((category) => [
+                category.title,
+                products.filter(
+                    (product) =>
+                        String(product.category[0]) === String(category._id),
+                ).length,
+            ]);
+        } catch (error) {
+            console.log(error);
         }
     }
 }

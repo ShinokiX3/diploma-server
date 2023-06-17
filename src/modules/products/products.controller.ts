@@ -262,4 +262,11 @@ export class ProductsController {
     getProductsPreview(@Req() request) {
         return this.productsService.getProductsPreview();
     }
+
+    // Chart
+
+    @Get('/chart/all')
+    getProductsServiceChartInfo(@Req() request) {
+        return this.productsService.getProductsServiceChartInfo(request);
+    }
 }

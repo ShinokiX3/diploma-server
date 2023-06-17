@@ -10,6 +10,7 @@ import { User, UserDocument } from './schemas/user.schema';
 import { Role, RoleDocument } from './schemas/role.schema';
 import { Favourites, FavouritesDocument } from './schemas/favourites.schema';
 import { Orders, OrdersDocument } from './schemas/orders.schema';
+const crypto = require('crypto');
 
 import { InjectModel } from '@nestjs/mongoose';
 
@@ -95,6 +96,45 @@ export class UsersService {
     }
 
     // Order
+
+    async getAllOrders(request: any): Promise<any> {
+        try {
+            const orders = await this.orderModel.find();
+
+            return orders;
+        } catch (e) {
+            throw new Error(e);
+        }
+    }
+
+    async getOrderById(request: any, dto: any): Promise<any> {
+        try {
+            const orders = await this.orderModel.find({
+                _id: dto.id,
+            });
+
+            return orders;
+        } catch (e) {
+            throw new Error(e);
+        }
+    }
+
+    async changeOrderStatus(request: any, dto: any): Promise<any> {
+        try {
+            const response = await this.orderModel.updateOne(
+                { _id: dto.id },
+                {
+                    $set: {
+                        status: dto.status,
+                    },
+                },
+            );
+
+            return response;
+        } catch (e) {
+            throw new Error(e);
+        }
+    }
 
     async getUserOrders(request: any): Promise<any> {
         try {
@@ -185,6 +225,77 @@ export class UsersService {
             throw new Error(e);
         }
     }
+
+    // Liqpay
+
+    async getLiqpayData(dto: any): Promise<any> {
+        try {
+            const data = Buffer.from(JSON.stringify(dto.params)).toString(
+                'base64',
+            );
+            const signature = stringToSignature(
+                dto.private_key + data + dto.private_key,
+            );
+            return { data, signature };
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    // Chart
+
+    async getUserServiceChartInfo(request: any): Promise<any> {
+        try {
+            const orders = await this.orderModel.find();
+            const sortedOrders = orders.sort((a, b) =>
+                a.date > b.date ? -1 : 1,
+            );
+            const byDate = {};
+            sortedOrders.forEach((order) => {
+                const date = fd(order.date);
+                if (byDate[date]) byDate[date].push(order);
+                else byDate[date] = [order];
+            });
+            const result = [];
+            for (const key in byDate) {
+                result.push([key, byDate[key].length]);
+            }
+
+            return result;
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    // User
+
+    async getAllUsers(request: any): Promise<any> {
+        try {
+            const users = await this.userModel.find();
+
+            return users;
+        } catch (error) {
+            console.log(error);
+        }
+    }
+}
+
+function stringToSignature(str: string) {
+    const sha1 = crypto.createHash('sha1');
+    sha1.update(str);
+    return sha1.digest('base64');
+}
+
+function fd(date) {
+    return ['year', 'month', 'day']
+        .map((e) =>
+            new Intl.DateTimeFormat('en', {
+                [e]: 'numeric',
+            })
+                .format(date)
+                .padStart(2, '0'),
+        )
+        .join('-');
 }
 
 // const response = await this.userModel.updateOne(
